@@ -109,7 +109,7 @@ const TabButton = (props) => {
                     <Icon
                         type={item.type}
                         name={item.icon}
-                        color={focused ? Colors.white : "#00AA95"}
+                        color={focused ? Colors.white : "#00CC76"}
                     />
                 </View>
                 <Animatable.Text ref={textRef} style={styles.text}>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#00AA95",
+        backgroundColor: "#00CC76",
         borderRadius: 25,
     },
     text: {

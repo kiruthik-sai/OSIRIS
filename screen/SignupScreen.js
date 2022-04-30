@@ -115,9 +115,9 @@ const SignupScreen = () => {
 export default SignupScreen;
 
 const primaryColor = "#f7c89e";
-const secondaryColor = "#8969ff";
+const secondaryColor = "#00CC76";
 const loginButtonColor = "#f24ea8";
-const signupButtonColor = "#FF7D87";
+const signupButtonColor = "#DCBC99";
 
 const styles = StyleSheet.create({
     container: {
@@ -128,19 +128,21 @@ const styles = StyleSheet.create({
     },
     logoBox: {
         flex: 1,
-        marginBottom: 10,
+        // marginBottom: 10,
+        // marginBottom:10,
+
     },
     mainLogo: {
         width: 100,
         height: 100,
         marginTop: "25%",
-        borderRadius: 25,
-        borderWidth: 0.1,
-        borderColor: "grey",
+
+        // borderRadius: 25,
+        // borderWidth: 0.1,
+        // borderColor: "grey",
     },
     boxMain: {
         flex: 2,
-
         position: "absolute",
         backgroundColor: secondaryColor,
         width: "90%",
