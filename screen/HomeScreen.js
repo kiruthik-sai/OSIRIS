@@ -36,41 +36,12 @@ import {
     AlegreyaSans_900Black,
     AlegreyaSans_900Black_Italic,
 } from "@expo-google-fonts/alegreya-sans";
-import * as Notifications from 'expo-notifications'
+import * as Location from 'expo-location'
+import Weather from "../components/Weather";
 
-Notifications.setNotificationHandler({
-  handleNotification: async ()=>{
-    return {
-      shouldPlaySound: true,
-      shouldShowAlert: true
-    }
-  }
-})
 
-function getDistance(p1,p2){
 
-  let R =  3958.8
-  let newLat1 = p1[0]*(Math.PI/180)
-  let newLat2 = p2[0]*(Math.PI/180)
-  let latDiff = (p1[0] - p2[0])*(Math.PI/180)
-  let lonDiff = (p1[1] - p2[1])*(Math.PI/180)
-  let a =  Math.sin(latDiff/2) * Math.sin(latDiff/2) + Math.cos(newLat1) * Math.cos(newLat2) * Math.sin(lonDiff/2) * Math.sin(lonDiff/2);
-  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-  return R*c
-}
 
-async function schedulePushNotification() {
-  console.log("inside push notification")
-  //await Notifications.cancelAllScheduledNotificationsAsync();
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "You've got this 💓 !!!",
-      body: "You've got this! Hold on to yourself!"
-    },
-    trigger:null
-  });
-  console.log("notification sent")
-}
 
 
 
@@ -80,32 +51,60 @@ const HomeScreen = () => {
     const [allNews, setAllNews] = useState(null);
     const [newsArray, setNewsArray] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+    const [location, setLocation] = useState([])
+    const [weather, setWeather] = useState([])
+    const [weatherComponents, setWeatherComponents] = useState([])
+
     useEffect(() => {
-      (async () => {
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
-          Alert.alert('Permission to access location was denied');
-          return;
+        (async () => {
+          let { status } = await Location.requestForegroundPermissionsAsync();
+          if (status !== 'granted') {
+            console.log('Permission to access location was denied');
+            return;
+          }
+    
+          let loc = await Location.getCurrentPositionAsync({});
+          console.log(loc)
+          setLocation(loc.coords);
+        })();
+      }, []);
+
+      useEffect(async ()=>{
+        if(location!=[]){
+            let data = await Location.reverseGeocodeAsync(location)
+            console.log("data:", data)
+            let city = data[0].city
+            let url = "https://weatherdbi.herokuapp.com/data/weather/"+city
+            fetch(url)
+            .then(response=>response.json())
+            .then(data=>{
+                let days = data["next_days"]
+                setWeather(days)
+            })
+            .catch(err=>console.log(err))
         }
-  
-        Location.watchPositionAsync({},(data)=>{
-          let lat = data.coords.latitude
-          let lon = data.coords.longitude
-          let currentPoint = [lat,lon]
-          let coordinates = require('../coordinates.json');
-  
-              for(let i=0;i<coordinates.data.length; i++){
-                  if(getDistance(currentPoint, coordinates.data[i])<=1){
-                      console.log(i)
-                      console.log("!!!!!!!!!!!ALERT!!!!!!!!!!!!!!!!")
-                      schedulePushNotification()
-                      break
-                  }
-              }
-        })
-        console.log(location)
-      })();
-    }, []);
+      },[location])
+
+      useEffect(()=>{
+        console.log("weather",weather)
+        let temp = []
+        for(let i=0;i<weather.length;i++){
+            console.log(weather[i].iconURL)
+            temp.push(<Weather 
+                src={weather[i].iconURL}
+                min={weather[i]["min_temp"].c}
+                max={weather[i]["max_temp"].c}
+                day={weather[i].day}
+                comment = {weather[i].comment}
+            />)        
+        }
+        setWeatherComponents(temp)
+      },[weather])
+
+      useEffect(()=>{
+          console.log(weatherComponents)
+      },[weatherComponents])
+    
     let [fontsLoaded] = useFonts({
         AlegreyaSans_100Thin,
         AlegreyaSans_100Thin_Italic,
@@ -230,7 +229,13 @@ const HomeScreen = () => {
                         ))}
                     </ScrollView>
                 </View>
+                <View style={styles.newsArticles}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                        {weatherComponents}
+                    </ScrollView>
+                </View>
             </ScrollView>
+
         );
     }
 };
