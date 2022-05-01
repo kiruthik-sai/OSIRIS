@@ -59,14 +59,14 @@ const Splash = () => {
                     resizeMode="cover"
                     style={styles.BG}
                 >
-                    <Text style={styles.head}>It's Okay, We got this!</Text>
+                    
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             onPress={() => navigation.navigate("Login")}
                             style={styles.signupButton}
                         >
                             <Text style={[styles.buttonText]}>
-                                Let Us Help You
+                                OSIRIS
                             </Text>
                         </TouchableOpacity>
                     </View>
