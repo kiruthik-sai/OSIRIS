@@ -8,31 +8,73 @@ import {
 	TouchableOpacity,
 	Text,
 	ScrollView,
+	Modal,
 } from "react-native";
-
+import {
+	useFonts,
+	AlegreyaSans_100Thin,
+	AlegreyaSans_100Thin_Italic,
+	AlegreyaSans_300Light,
+	AlegreyaSans_300Light_Italic,
+	AlegreyaSans_400Regular,
+	AlegreyaSans_400Regular_Italic,
+	AlegreyaSans_500Medium,
+	AlegreyaSans_500Medium_Italic,
+	AlegreyaSans_700Bold,
+	AlegreyaSans_700Bold_Italic,
+	AlegreyaSans_800ExtraBold,
+	AlegreyaSans_800ExtraBold_Italic,
+	AlegreyaSans_900Black,
+	AlegreyaSans_900Black_Italic,
+} from "@expo-google-fonts/alegreya-sans";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { Camera } from "expo-camera";
-import Icon from 'react-native-vector-icons/FontAwesome';
-
+import Icon from "react-native-vector-icons/FontAwesome";
+import Emergency from "./emergency";
 function Detector() {
+	let [fontsLoaded] = useFonts({
+		AlegreyaSans_100Thin,
+		AlegreyaSans_100Thin_Italic,
+		AlegreyaSans_300Light,
+		AlegreyaSans_300Light_Italic,
+		AlegreyaSans_400Regular,
+		AlegreyaSans_400Regular_Italic,
+		AlegreyaSans_500Medium,
+		AlegreyaSans_500Medium_Italic,
+		AlegreyaSans_700Bold,
+		AlegreyaSans_700Bold_Italic,
+		AlegreyaSans_800ExtraBold,
+		AlegreyaSans_800ExtraBold_Italic,
+		AlegreyaSans_900Black,
+		AlegreyaSans_900Black_Italic,
+	});
+	const [modalVisible, setModalVisible] = useState(false);
+
 	const [hasPermission, setHasPermission] = useState(null);
 	const [type, setType] = useState(Camera.Constants.Type.back);
 	const [openCamera, setOpenCamera] = useState(false);
 	const [image, setImage] = useState(null);
 	const cameraRef = useRef();
-
+	const [dataPassed, setDataPassed] = useState({
+		disease: "",
+		plant: "",
+		remedy: "",
+	});
 	useEffect(() => {
 		(async () => {
 			const { status } = await Camera.requestCameraPermissionsAsync();
 			setHasPermission(status === "granted");
 		})();
+		// setModalVisible(true);
 	}, []);
 
 	useEffect(() => {
 		console.log(openCamera);
 	}, [openCamera]);
+	// useEffect(()=>{
 
+	// },[])
 	const takePicture = async () => {
 		if (cameraRef.current) {
 			const options = { quality: 0.7, base64: true };
@@ -51,99 +93,168 @@ function Detector() {
 			quality: 1,
 		});
 
-		console.log("result",result);
+		console.log("result", result);
 
 		if (!result.cancelled) {
 			setImage(result.uri);
 		}
 	};
-	return (
-		<ScrollView contentContainerStyle={styles.ScrollView}>
-			<TouchableOpacity onPress={pickImage}>
-				<Text style={styles.pickImage}>
-					Pick an image from camera roll
-				</Text>
-        {/* <Icon.Button name="facebook" backgroundColor="#3b5998">
+	if (!fontsLoaded) {
+		return null;
+	} else {
+		console.log("fonts", fontsLoaded);
+		return (
+			<>
+				<ScrollView contentContainerStyle={styles.ScrollView}>
+					<Modal
+						animationType="slide"
+						transparent={true}
+						visible={modalVisible}
+						onRequestClose={() => {
+							setModalVisible(false);
+						}}
+					>
+						<View style={styles.centeredView}>
+							<View style={styles.modalView}><ScrollView>
+								<Text style={styles.Report}>
+									Analysis Report
+								</Text>
+								<Text style={styles.card}>
+									<Text style={{color:"black"}}>Disease:</Text> {dataPassed.disease}
+								</Text>
+								<Text style={styles.card}>
+								<Text style={{color:"black"}}>Plant:</Text> {dataPassed.plant}
+								</Text>
+								<Text style={styles.card}>
+								<Text style={{color:"black"}}>Remedy:</Text> {dataPassed.remedy}
+								</Text>
+								<Text style={styles.card}>
+								<Text style={{color:"black"}}>Call +1 833-897-2474 :</Text> for more help.
+								</Text>
+								</ScrollView>
+							</View>
+						</View>
+					</Modal>
+					<TouchableOpacity onPress={pickImage}>
+						<Text style={styles.pickImage}>
+							Pick an image from camera roll
+						</Text>
+						{/* <Icon.Button name="facebook" backgroundColor="#3b5998">
     <Text style={{ fontFamily: 'Arial', fontSize: 15 }}>
       Login with Facebook
     </Text>
   </Icon.Button> */}
-			</TouchableOpacity>
-			<TouchableOpacity
-				onPress={() => {
-					setOpenCamera(!openCamera);
-				}}
-			>
-				<Text style={styles.openCamera}>{openCamera?"Close ":"Open"} Camera</Text>
-			</TouchableOpacity>
-			{openCamera && (
-				<View style={styles.container}>
-					<Camera ref={cameraRef} style={styles.camera} type={type}>
-						<View style={styles.buttonContainer}>
-							<TouchableOpacity
-								style={styles.button}
-								onPress={() => {
-									console.log(type);
-									setType(
-										type === Camera.Constants.Type.back
-											? Camera.Constants.Type.front
-											: Camera.Constants.Type.back
-									);
-								}}
+					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => {
+							setOpenCamera(!openCamera);
+						}}
+					>
+						<Text style={styles.openCamera}>
+							{openCamera ? "Close " : "Open"} Camera
+						</Text>
+					</TouchableOpacity>
+					{openCamera && (
+						<View style={styles.container}>
+							<Camera
+								ref={cameraRef}
+								style={styles.camera}
+								type={type}
 							>
-								<Text style={styles.text}> Flip </Text>
-							</TouchableOpacity>
-							<TouchableOpacity
-								style={styles.button}
-								onPress={takePicture}
-							>
-								<Text style={styles.text}>Take Picture</Text>
-							</TouchableOpacity>
+								<View style={styles.buttonContainer}>
+									<TouchableOpacity
+										style={styles.button}
+										onPress={() => {
+											console.log(type);
+											setType(
+												type ===
+													Camera.Constants.Type.back
+													? Camera.Constants.Type
+															.front
+													: Camera.Constants.Type.back
+											);
+										}}
+									>
+										<Text style={styles.text}> Flip </Text>
+									</TouchableOpacity>
+									<TouchableOpacity
+										style={styles.button}
+										onPress={takePicture}
+									>
+										<Text style={styles.text}>
+											Take Picture
+										</Text>
+									</TouchableOpacity>
+								</View>
+							</Camera>
 						</View>
-					</Camera>
-				</View>
-			)}
-			{image && (
-				<Image
-					source={{ uri: image }}
-					style={{ width: 200, height: 200 }}
-				/>
-			)}
-			<TouchableOpacity
-				onPress={async () => {
-					const base64 = await FileSystem.readAsStringAsync(image, {
-						encoding: "base64",
-					});
-					let url = "http://10.0.0.59:8080/ok";
-					fetch(url, {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({
-							image: base64,
-						}),
-					})
-						.then((response) => response.json())
-						.then((data) => {
-							console.log(data);
-						})
-						.catch((err) => console.log("error: ", err));
-				}}
-			>
-				<Text style={styles.TestForDisease} >Test for Disease </Text>
-			</TouchableOpacity>
-		</ScrollView>
-	);
+					)}
+					{image && (
+						<Image
+							source={{ uri: image }}
+							style={{ width: 200, height: 200 }}
+						/>
+					)}
+					<TouchableOpacity
+						onPress={async () => {
+							const base64 = await FileSystem.readAsStringAsync(
+								image,
+								{
+									encoding: "base64",
+								}
+							);
+							let url = "http://10.0.0.59:8080/ok";
+							fetch(url, {
+								method: "POST",
+								headers: {
+									"Content-Type": "application/json",
+								},
+								body: JSON.stringify({
+									image: base64,
+								}),
+							})
+								.then((response) => response.json())
+								.then((data) => {
+									console.log(data);
+									setDataPassed(data);
+									setModalVisible(true);
+								})
+								.catch((err) => console.log("error: ", err));
+						}}
+					>
+						<Text style={styles.TestForDisease}>
+							Test for Disease{" "}
+						</Text>
+					</TouchableOpacity>
+				</ScrollView>
+			</>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
+	Report: {
+		fontFamily: "AlegreyaSans_700Bold",
+		fontSize: 45,
+		color: "white",
+		marginBottom: 30,
+	},
+	card: {
+		width: 300,
+		borderRadius: 15,
+		padding: 5,
+		paddingLeft: 10,
+		backgroundColor: "#DCBC99",
+		fontSize: 20,
+		color: "white",
+		marginVertical: 10,
+	},
 	ScrollView: {
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
 		backgroundColor: "#f8fff5",
-    // paddingVertical:100,
+		// paddingVertical:100,
 	},
 	pickImage: {
 		backgroundColor: "#DCBC99",
@@ -158,16 +269,40 @@ const styles = StyleSheet.create({
 		margin: 10,
 		padding: 15,
 		borderRadius: 15,
-    fontWeight: "bold",
+		fontWeight: "bold",
 
 		fontSize: 15,
+	},
+	centeredView: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		marginTop: 22,
+	},
+
+	modalView: {
+		width: 350,
+		height: 700,
+		margin: 20,
+		backgroundColor: "#A3B59E",
+		borderRadius: 20,
+		padding: 10,
+		alignItems: "center",
+		shadowColor: "#000",
+		shadowOffset: {
+			width: 0,
+			height: 2,
+		},
+		shadowOpacity: 0.25,
+		shadowRadius: 4,
+		elevation: 5,
 	},
 	container: {
 		flex: 1,
 		width: "100%",
 		paddingBottom: 150,
 		backgroundColor: "#f8fff5",
-    // padding: 50,
+		// padding: 50,
 	},
 	camera: {
 		flex: 1,

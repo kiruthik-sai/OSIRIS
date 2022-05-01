@@ -13,6 +13,7 @@ import {
     Alert,
     Modal,
     Pressable,
+    ImageBackground,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { auth } from "../database/firebase";
@@ -122,6 +123,7 @@ const HomeScreen = () => {
         AlegreyaSans_900Black,
         AlegreyaSans_900Black_Italic,
     });
+    const cropBG = require("../assets/cropBG.jpg");
 
     useEffect(() => {
         if (saScore <= 34) {
@@ -171,9 +173,13 @@ const HomeScreen = () => {
     if (!fontsLoaded) {
         return null;
     } else {
-        return (
+        return ( <ImageBackground
+            source={cropBG}
+            resizeMode="cover"
+            style={styles.BG}
+        >
             <ScrollView style={styles.container}>
-                
+               
                 
                 {/* Profile Header */}
                 <View style={styles.profileHeader}>
@@ -231,6 +237,7 @@ const HomeScreen = () => {
                     </ScrollView>
                 </View>
             </ScrollView>
+            </ImageBackground>
         );
     }
 };
@@ -241,7 +248,7 @@ const styles = StyleSheet.create({
     container: {
         marginBottom: 75,
         flex: 1,
-        backgroundColor: "#f8fff5",
+        // backgroundColor: "#f8fff5",
 
     },
     centeredView: {
@@ -250,7 +257,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginTop: 22,
     },
-
+    BG: {
+        flex: 1,
+        justifyContent: "center",
+    },
     modalView: {
         margin: 20,
         backgroundColor: "white",
@@ -304,6 +314,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingTop: 25,
         marginTop: 20,
+        marginBottom:10,
     },
     profileLogo: {
       

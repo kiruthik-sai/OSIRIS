@@ -41,13 +41,13 @@ const PlantLists = ({ plant ,modalVisible,setModalVisible}) => (
 
 	<View>
 		<TouchableOpacity 
-		onPress={() => setModalVisible(!modalVisible)}
+		// onPress={() => setModalVisible(!modalVisible)}
 			// onPress={()=>navigation.navigate("Detail")}
 			style={{
 				padding: 10,
 				height: 250,
 				elevation: 2,
-				backgroundColor: "#FFF",
+				backgroundColor: "#A3B59E",
 				marginLeft: 20,
 				marginTop: 20,
 				borderRadius: 15,
@@ -70,29 +70,14 @@ const PlantLists = ({ plant ,modalVisible,setModalVisible}) => (
 			>
 				<Text
 					style={{
-						fontWeight: "bold",
+						fontFamily:"AlegreyaSans_700Bold",
+						fontSize:20,
+						color: "white",
 					}}
-				>{`LOL`}</Text>
-				<Text
-					style={{
-						fontWeight: "bold",
-						color: "#00a46c",
-						paddingLeft: 35,
-					}}
-				>
-					${plant.deliveryFee}
-				</Text>
+				>{plant.name}</Text>
+				
 			</View>
-			<Text
-				style={{
-					paddingHorizontal: 10,
-					fontWeight: "bold",
-					color: "#b1e5d3",
-					paddingTop: 3,
-				}}
-			>
-				{plant.rating}
-			</Text>
+			
 		</TouchableOpacity>
 	</View>
 );
@@ -120,7 +105,11 @@ export default function Plants() {
 	});
   const cropBG = require("../assets/plantsBG.jpg");
   
-	return (<><ImageBackground
+  if (!fontsLoaded) {
+	return null;
+} else {
+	console.log("fonts",fontsLoaded)
+	return ( <><ImageBackground
 		source={cropBG}
 		resizeMode="cover"
 		style={styles.BG}
@@ -159,11 +148,11 @@ export default function Plants() {
 						/>
 					</TouchableOpacity>
 				</View>
-				<View style={{ width: "34%" }}>
+				<View style={{ width: "35%" }}>
 					<Text
 						style={{
-							fontWeight: "bold",
-							fontSize: 17,
+							// fontWeight: "bold",
+							fontSize: 19,
 							color: "#c78340",
 							margin: 1,
 							marginTop: 15,
@@ -174,7 +163,7 @@ export default function Plants() {
 							backgroundColor:"rgba(186, 222, 222,0.6)",
 							borderRadius:15,
 							padding: 5,
-							paddingHorizontal:6
+							paddingHorizontal:6,fontFamily:"AlegreyaSans_700Bold",
 						}}
 					>
 						Your crops:
@@ -190,9 +179,9 @@ export default function Plants() {
 				/>
 				<View style={{ width: "90%" }}>
 					<Text
-						style={{
-							fontWeight: "bold",
-							fontSize: 17,
+						style={{							fontSize: 19,
+
+							// fontWeight: "bold",
 							color: "#c78340",
 							margin: 1,
 							marginTop: 15,
@@ -203,7 +192,7 @@ export default function Plants() {
 							backgroundColor:"rgba(186, 222, 222,0.6)",
 							borderRadius:15,
 							padding: 5,
-							paddingHorizontal:6
+							paddingHorizontal:6,fontFamily:"AlegreyaSans_700Bold",
 						}}
 					>
 						Reccomendations for {monthName} and soil type:
@@ -222,7 +211,7 @@ export default function Plants() {
 		</ImageBackground>
 		</>
 	);
-}
+}}
 
 const styles = StyleSheet.create({
 	ScrollView: { paddingBottom: 82,  flex: 1 },
