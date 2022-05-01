@@ -136,17 +136,17 @@ const HomeScreen = () => {
     });
 
     // Get the news
-    useEffect(() => {
-        console.log(auth.currentUser);
-        fetch("https://hygia12.herokuapp.com/news")
-            .then((res) => res.json())
-            .then((data) => {
-                setAllNews(data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     console.log(auth.currentUser);
+    //     fetch("https://hygia12.herokuapp.com/news")
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setAllNews(data);
+    //         })
+    //         .catch((error) => {
+    //             console.error(error);
+    //         });
+    // }, []);
 
     useEffect(() => {
         if (allNews) {
@@ -172,21 +172,8 @@ const HomeScreen = () => {
     } else {
         return (
             <ScrollView style={styles.container}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        setModalVisible(!modalVisible);
-                    }}
-                >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            
-                            <Emergency/>
-                        </View>
-                    </View>
-                </Modal>
+                
+                
                 {/* Profile Header */}
                 <View style={styles.profileHeader}>
                     <View style={styles.profileMenu}>
@@ -195,7 +182,7 @@ const HomeScreen = () => {
                             style={styles.profileLogo}
                         />
                     </View>
-                    <TouchableOpacity style={styles.profilePhoto}  onPress={() =>  setModalVisible(true)}> 
+                    <TouchableOpacity style={styles.profilePhoto} > 
                         <Image
                             source={require("../assets/avatar.png")}
                             style={styles.profilePhoto}
@@ -207,7 +194,7 @@ const HomeScreen = () => {
                 {/* Update font */}
                 <View style={styles.welcomeMessage}>
                     <Text style={styles.welcomeTime}>
-                        Welcome back,&nbsp;
+                        Welcome,&nbsp;
                         <Text style={styles.welcomeUser}>
                             {auth.currentUser.displayName}!
                         </Text>
@@ -239,7 +226,7 @@ const HomeScreen = () => {
                         />
                     </TouchableOpacity>
                 </View> */}
-                <View style={styles.newsArticles}>
+                {/* <View style={styles.newsArticles}>
                     <ScrollView horizontal={true}>
                         {newsArray.map((news) => (
                             <TouchableOpacity
@@ -262,7 +249,7 @@ const HomeScreen = () => {
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
-                </View>
+                </View> */}
             </ScrollView>
         );
     }
