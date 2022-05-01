@@ -50,7 +50,7 @@ function Detector() {
 		AlegreyaSans_900Black_Italic,
 	});
 	const [modalVisible, setModalVisible] = useState(false);
-
+    const [pestModealVisible, setPestModalVisible] = useState(false)
 	const [hasPermission, setHasPermission] = useState(null);
 	const [type, setType] = useState(Camera.Constants.Type.back);
 	const [openCamera, setOpenCamera] = useState(false);
@@ -61,6 +61,7 @@ function Detector() {
 		plant: "",
 		remedy: "",
 	});
+    const [pestData, setPestData] = useState("")
 	useEffect(() => {
 		(async () => {
 			const { status } = await Camera.requestCameraPermissionsAsync();
@@ -131,7 +132,40 @@ function Detector() {
 								<Text style={styles.card}>
 								<Text style={{color:"black"}}>Call +1 833-897-2474 :</Text> for more help.
 								</Text>
+                                <TouchableOpacity
+                                    onPress={()=>{
+                                        setModalVisible(false)
+                                    }}
+                                >
+                                    <Text style={styles.TestForDisease}>Close</Text>
+                                </TouchableOpacity>
 								</ScrollView>
+							</View>
+						</View>
+
+					</Modal>
+                    <Modal
+						animationType="slide"
+						transparent={true}
+						visible={pestModealVisible}
+						onRequestClose={() => {
+							setPestModalVisible(false);
+						}}
+					>
+						<View style={styles.centeredView}>
+							<View style={styles.modalView}>
+                            <ScrollView>
+								<Text style={styles.Report}>
+									Pest Detected: {pestData}
+								</Text>
+								<TouchableOpacity
+                                    onPress={()=>{
+                                        setPestModalVisible(false)
+                                    }}
+                                >
+                                    <Text style={styles.TestForDisease}>Close</Text>
+                                </TouchableOpacity>
+							</ScrollView>
 							</View>
 						</View>
 					</Modal>
@@ -226,6 +260,20 @@ function Detector() {
 							Test for Disease{" "}
 						</Text>
 					</TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={()=>{
+                            if(image){
+                                fetch("http://10.0.0.59:8080/infest")
+                                .then(response=>response.json())
+                                .then(data=>{
+                                    setPestData(data.infestation)
+                                    setPestModalVisible(true)
+                                })
+                            }
+                        }}
+                    >
+                        <Text style={styles.TestForDisease}>Test for Pest</Text>
+                    </TouchableOpacity>
 				</ScrollView>
 			</>
 		);
