@@ -136,17 +136,18 @@ const HomeScreen = () => {
     });
 
     // Get the news
-    // useEffect(() => {
-    //     console.log(auth.currentUser);
-    //     fetch("https://hygia12.herokuapp.com/news")
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setAllNews(data);
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });
-    // }, []);
+    useEffect(() => {
+        console.log(auth.currentUser);
+        fetch("http://10.0.0.59:8080/news")
+            .then((res) => res.json())
+            .then((data) => {
+                setAllNews(data);
+                console.log(data)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
 
     useEffect(() => {
         if (allNews) {
@@ -203,31 +204,9 @@ const HomeScreen = () => {
 
                 
 
-                {/* Month and Map */}
-                {/* <View style={styles.monthAndmap}>
-                    <View style={styles.calendarBox}>
-                        <View
-                            style={styles.calendarMainBox}
-                            backgroundColor={saBGColor}
-                        >
-                            <Text style={styles.substanceScore}>{saScore}</Text>
-                            <Text style={styles.substanceForecast}>SORC</Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate("Maps");
-                        }}
-                        style={styles.mapBox}
-                    >
-                        <Image
-                            source={require("../assets/mapImg.jpeg")}
-                            style={styles.mapImg}
-                        />
-                    </TouchableOpacity>
-                </View> */}
-                {/* <View style={styles.newsArticles}>
-                    <ScrollView horizontal={true}>
+                
+                <View style={styles.newsArticles}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                         {newsArray.map((news) => (
                             <TouchableOpacity
                                 style={styles.newsDisplayBox}
@@ -243,13 +222,14 @@ const HomeScreen = () => {
                                 <Text
                                     style={styles.newsText}
                                     //onPress={() => console.log(news.source)}
+                                    numberOfLines={6}
                                 >
                                     {news.summary}
                                 </Text>
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
-                </View> */}
+                </View>
             </ScrollView>
         );
     }
@@ -300,21 +280,23 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     newsDisplayBox: {
-        backgroundColor: "#e0e0e0",
+        backgroundColor: "#A3B59E",
         margin: 10,
-        width: 350,
+        width: 150,
+        height: 300,
         borderRadius: 25,
         padding: 10,
         color: "white",
     },
     newsImage: {
         width: "100%",
-        height: 200,
+        height: 150,
         borderRadius: 25,
     },
     newsText: {
         padding: 10,
         fontWeight: "600",
+        fontSize:15,
     },
     profileHeader: {
         flexDirection: "row",
@@ -453,6 +435,6 @@ const styles = StyleSheet.create({
         height: "90%",
     },
     newsArticles: {
-        flex: 4,
+        flex: 3,
     },
 });
