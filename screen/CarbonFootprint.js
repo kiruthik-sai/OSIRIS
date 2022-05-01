@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text,View, Picker, StyleSheet, TextInput,SafeAreaView, Button, Alert} from "react-native";
 
-const App = () => {
+const Carbon = () => {
   const [selectedValue, setSelectedValue] = useState("0");
   const [text, onChangeText] = React.useState("");
   const [number, onChangeNumber] = React.useState(0);
@@ -67,10 +67,15 @@ const styles = StyleSheet.create({
     
   },
   txt:{
-    height: 40,
-    margin: 1,
-    borderWidth: 1,
-    color:'black'
+    color: "black",
+        backgroundColor: "white",
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 15,
+        marginTop: 20,
+        width: "100%",
+        fontSize: 15,
+        fontFamily: "monospace",
   },
   text:{
     color:'green'
@@ -78,4 +83,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default App;
+export default Carbon;
