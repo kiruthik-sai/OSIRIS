@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     container:{
         margin: 10,
         width: 150,
-        height: 150,
+        height: 170,
         borderRadius: 25,
         padding: 10,
         paddingBottom: 0,

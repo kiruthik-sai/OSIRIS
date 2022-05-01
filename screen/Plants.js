@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import plants from "../assets/data/plants.json";
+import plantsrecc from "../assets/data/plantsrecc.json";
 import PlantList from "../components/PlantList/index";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -200,7 +201,7 @@ export default function Plants() {
 				</View>
 				<FlatList
 					horizontal
-					data={plants}
+					data={plantsrecc}
 					renderItem={renderItem}
 					showsHorizontalScrollIndicator={false}
 					style={styles.flatList2}
