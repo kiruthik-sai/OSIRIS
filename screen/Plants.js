@@ -82,11 +82,13 @@ const PlantLists = ({ plant ,modalVisible,setModalVisible}) => (
 );
 export default function Plants() {
 	const [modalVisible, setModalVisible] = useState(false);
-
+	const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	const d = new Date();
+	let monthName = months[d.getMonth()];
 	const renderItem = ({ item }) => <PlantLists plant={item} modalVisible={modalVisible} setModalVisible={setModalVisible}/>;
 
 	return (
-		<ScrollView style={styles.ScrollView}>
+		<ScrollView style={styles.ScrollView} showsVerticalScrollIndicator={false}>
 			<Modal
 				animationType="slide"
 				transparent={true}
@@ -145,7 +147,7 @@ export default function Plants() {
 					showsHorizontalScrollIndicator={false}
 					style={styles.flatList}
 				/>
-				<View style={{ width: "50%" }}>
+				<View style={{ width: "90%" }}>
 					<Text
 						style={{
 							fontWeight: "bold",
@@ -159,7 +161,7 @@ export default function Plants() {
 							textShadowRadius: 10,
 						}}
 					>
-						Reccomendations:
+						Reccomendations for {monthName} and soil type:
 					</Text>
 				</View>
 				<FlatList
@@ -167,7 +169,8 @@ export default function Plants() {
 					data={plants}
 					renderItem={renderItem}
 					showsHorizontalScrollIndicator={false}
-					style={styles.flatList}
+					style={styles.flatList2}
+					
 				/>
 			</View>
 		</ScrollView>
@@ -175,7 +178,7 @@ export default function Plants() {
 }
 
 const styles = StyleSheet.create({
-	ScrollView: { marginBottom: 82, backgroundColor: "#f8fff5", flex: 1 },
+	ScrollView: { paddingBottom: 82, backgroundColor: "#f8fff5", flex: 1 },
 	item: {
 		backgroundColor: "#f9c2ff",
 		padding: 20,
@@ -184,6 +187,12 @@ const styles = StyleSheet.create({
 	},
 	flatList: {
 		marginTop: 5,
+		textShadowColor: "rgba(0, 0, 0, 0.25)",
+		textShadowOffset: { width: -1, height: 1 },
+		textShadowRadius: 10,
+	},
+	flatList2: {
+		marginBottom: 80,
 		textShadowColor: "rgba(0, 0, 0, 0.25)",
 		textShadowOffset: { width: -1, height: 1 },
 		textShadowRadius: 10,
