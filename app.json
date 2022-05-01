@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "codefest",
-    "slug": "codefest",
+    "name": "osiris",
+    "slug": "osiris",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.hruday97.codefest"
+      "package": "com.hruday97.osiris"
     },
     "web": {
       "favicon": "./assets/favicon.png"
