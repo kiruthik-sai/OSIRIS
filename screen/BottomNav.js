@@ -20,7 +20,7 @@ const TabArr = [
         route: "ViewLogs",
         label: "Detector",
         type: Icons.FontAwesome5,
-        icon: "heartbeat",
+        icon: "camera",
         component: Detector,
     },
     {
@@ -46,9 +46,9 @@ const TabArr = [
     },
     {
         route: "Settings",
-        label: "Settings",
-        type: Icons.Feather,
-        icon: "settings",
+        label: "Co2",
+        type: Icons.FontAwesome5,
+        icon: "leaf",
         component: Settings,
     },
     

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "1",
+    "name": "Hay",
+    "deliveryFee": 1.4,
+    "minDeliveryTime": 25,
+    "maxDeliveryTime": 35,
+    "rating": 4.0,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Hay_bale_at_dawn.jpg/1200px-Hay_bale_at_dawn.jpg",
+    "dishes": []
+      
+  },
+  {
+    "id": "2",
+    "name": "Oats",
+    "deliveryFee": 0.4,
+    "minDeliveryTime": 25,
+    "maxDeliveryTime": 35,
+    "rating": 4.7,
+    "image": "https://cdn.britannica.com/87/187187-050-31B10B3D/oats-harvest.jpg",
+    "dishes": []
+    
+  },
+  {
+    "id": "3",
+    "name": "Barley",
+    "deliveryFee": 1.4,
+    "minDeliveryTime": 20,
+    "maxDeliveryTime": 30,
+    "rating": 4.3,
+    "image": "https://cdn.britannica.com/31/75931-050-FED41F1F/Barley.jpg",
+    "dishes": [
+     
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Potato",
+    "deliveryFee": 0.9,
+    "minDeliveryTime": 30,
+    "maxDeliveryTime": 40,
+    "rating": 4.5,
+    "image": "https://cdn.w600.comps.canstockphoto.com/fresh-potato-crop-just-dug-out-of-the-stock-photography_csp14271809.jpg",
+    "dishes": []
+    
+  },
+  {"id":"5",
+    "name": "Sweet Potato",
+    "deliveryFee": 0.9,
+    "minDeliveryTime": 30,
+    "maxDeliveryTime": 40,
+    "rating": 4.5,
+    "image": "https://image.shutterstock.com/image-photo/sweet-potato-produce-put-on-260nw-789622942.jpg",
+    "dishes": []
+
+  },
+  {"id":"6",
+    "name": "Soybeans",
+    "deliveryFee": 0.9,
+    "minDeliveryTime": 30,
+    "maxDeliveryTime": 40,
+    "rating": 4.5,
+    "image": "https://brownfieldagnews.com/wp-content/uploads/2021/10/soy-1.jpg",
+    "dishes": []
+
+  }
+]
