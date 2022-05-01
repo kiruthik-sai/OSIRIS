@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, Image, View, Platform, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 import { Camera } from 'expo-camera';
 
 
@@ -80,7 +81,28 @@ function Detector() {
             </Camera>
         </View>}
         {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-
+        <TouchableOpacity
+            onPress={async ()=>{
+                const base64 = await FileSystem.readAsStringAsync(image, { encoding: 'base64' });
+                let url="http://10.0.0.59:8080/ok"
+                fetch(url,{
+                    method:'POST',
+                    headers:{
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "image":base64
+                    })
+                })
+                .then(response=>response.json())
+                .then(data=>{
+                    console.log(data)
+                })
+                .catch(err=>console.log("error: ",err))
+            }}
+        >
+            <Text>Test for Disease</Text>
+        </TouchableOpacity>
         </View>
     )
 }

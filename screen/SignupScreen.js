@@ -31,7 +31,7 @@ const SignupScreen = () => {
                 })
                 const uid = user.uid
                 console.log("Registered in with:", user.email);
-                database.ref('Users').child(uid).set('logs')
+                database.ref('Users').child(uid).set('data')
                 navigation.navigate("Login");
             })
             .catch((error) => alert(error.message));
