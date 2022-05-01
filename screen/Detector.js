@@ -113,6 +113,7 @@ function Detector() {const cropBG = require("../assets/cropBG.jpg");
             style={styles.BG}
         >
 				<ScrollView contentContainerStyle={styles.ScrollView}>
+					<Text style={styles.title}>Crop Disease Detector</Text>
 					<Modal
 						animationType="slide"
 						transparent={true}
@@ -187,6 +188,7 @@ function Detector() {const cropBG = require("../assets/cropBG.jpg");
 							</View>
 						</View>
 					</Modal>
+					
 					<TouchableOpacity onPress={pickImage}>
 						<Text style={styles.pickImage}>
 							Pick an image from camera roll
@@ -333,6 +335,13 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		fontSize: 15,
 		fontWeight: "bold",
+	},
+	title: {
+		fontSize: 25,
+		alignItems: "center",
+		// fontWeight: "bold",
+		marginBottom: 20,
+		fontFamily: "AlegreyaSans_700Bold",
 	},
 	openCamera: {
 		backgroundColor: "#badede",
