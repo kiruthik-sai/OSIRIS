@@ -12,14 +12,15 @@ import MapsAlert from "./Maps";
 import ViewLogs from './ViewLogs'
 import Plants from "./Plants";
 import Emergency from "./emergency";
+import Detector from "./Detector";
 const TabArr = [
     
     {
         route: "ViewLogs",
-        label: "Health",
+        label: "Detector",
         type: Icons.FontAwesome5,
         icon: "heartbeat",
-        component: Plants,
+        component: Detector,
     },
     {
       route: "Maps",

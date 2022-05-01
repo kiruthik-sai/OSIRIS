@@ -11,6 +11,7 @@ import BottomNav from "./screen/BottomNav";
 import Splash from "./screen/Splash";
 import ViewLogs from "./screen/ViewLogs";
 import Logs from "./screen/Logs";
+import Detector from "./screen/Detector";
 // import './App.css';
 const Stack = createNativeStackNavigator();
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
@@ -32,6 +33,7 @@ function App() {
                 <Stack.Screen name="Signup" component={SignupScreen} />
                 <Stack.Screen name="Logs" component={Logs} />
                 <Stack.Screen name="ViewLogs" component={ViewLogs} />
+                <Stack.Screen name="detector" component={Detector} />
             </Stack.Navigator>
         </NavigationContainer>
     );
