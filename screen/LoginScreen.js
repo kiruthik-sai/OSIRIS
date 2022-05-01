@@ -13,8 +13,8 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../database/firebase";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 const LoginScreen = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("sai@gmail.com");
+    const [password, setPassword] = useState("123456");
     const [error, setError] = useState("");
     const navigation = useNavigation();
 

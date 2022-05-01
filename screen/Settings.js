@@ -8,311 +8,53 @@ import {
   LayoutAnimation,
   Platform,
   UIManager,
-  Linking,
+  Linking,ImageBackground,
 } from 'react-native';
 import DynamicForm from '@coffeebeanslabs/react-native-form-builder';
 import Icon, { Icons } from "../components/Icons";
-import { Button } from 'react-native-web';
+import { Button,  } from 'react-native-web';
 import { auth } from '../database/firebase';
 import { useNavigation } from '@react-navigation/native';
-
+import Carbon from './CarbonFootprint';
+import {
+	useFonts,
+	AlegreyaSans_100Thin,
+	AlegreyaSans_100Thin_Italic,
+	AlegreyaSans_300Light,
+	AlegreyaSans_300Light_Italic,
+	AlegreyaSans_400Regular,
+	AlegreyaSans_400Regular_Italic,
+	AlegreyaSans_500Medium,
+	AlegreyaSans_500Medium_Italic,
+	AlegreyaSans_700Bold,
+	AlegreyaSans_700Bold_Italic,
+	AlegreyaSans_800ExtraBold,
+	AlegreyaSans_800ExtraBold_Italic,
+	AlegreyaSans_900Black,
+	AlegreyaSans_900Black_Italic,
+} from "@expo-google-fonts/alegreya-sans";
 function Example(props) {
+  let [fontsLoaded] = useFonts({
+		AlegreyaSans_100Thin,
+		AlegreyaSans_100Thin_Italic,
+		AlegreyaSans_300Light,
+		AlegreyaSans_300Light_Italic,
+		AlegreyaSans_400Regular,
+		AlegreyaSans_400Regular_Italic,
+		AlegreyaSans_500Medium,
+		AlegreyaSans_500Medium_Italic,
+		AlegreyaSans_700Bold,
+		AlegreyaSans_700Bold_Italic,
+		AlegreyaSans_800ExtraBold,
+		AlegreyaSans_800ExtraBold_Italic,
+		AlegreyaSans_900Black,
+		AlegreyaSans_900Black_Italic,
+	});
   const navigation = useNavigation();
-  const formTemplate = {
-    data: [
-      {
-        component: 'input-radio',
-        field_name: '1',
-        is_mandatory: 'true',
-        meta: {
-          text: 'What is your age?',
-          data: [
-            {
-              label: '18-26',
-              value: '18-26'
-            },
-            {
-              label: '26+',
-              value: '26+'
-            }
-          ]
-        },
-      }
-,
-      {
-        component: 'input-radio',
-        field_name: '2',
-        is_mandatory: 'true',
-        meta: {
-          text: 'Do you suffer from back/neck pain?',
-          data: [
-            {
-              label: 'YES',
-              value: 'YES'
-            },
-            {
-              label: 'NO',
-              value: 'NO'
-            }
-          ]
-        }
-      }
-,
-      {
-        component: 'input-radio',
-        field_name: '3',
-        is_mandatory: 'true',
-        meta: {
-          text: 'Do you think sometimes your feet or hands tickle, or go numb? [ Neuropathic pain]',
-          data: [
-            {
-              label: 'YES',
-              value: 'YES'
-            },
-            {
-              label: 'NO',
-              value: 'NO'
-            }
-          ]
-        }
-      }
-,
-{
-  component: 'input-radio',
-  field_name: '4',
-  is_mandatory: 'true',
-  meta: {
-    text: 'Are you diagnosed with pancreatitis',
-    data: [
-      {
-        label: 'YES',
-        value: 'YES'
-      },
-      {
-        label: 'NO',
-        value: 'NO'
-      }
-    ]
-  }
-},
+  const cropBG = require("../assets/cropBG.jpg");
 
-{
-  component: 'input-radio',
-  field_name: '5',
-  is_mandatory: 'true',
-  meta: {
-    text: 'Do you suffer from abdominal pain?',
-    data: [
-      {
-        label: 'YES',
-        value: 'YES'
-      },
-      {
-        label: 'NO',
-        value: 'NO'
-      }
-    ]
-  }
-},
-
-{
-  component: 'input-radio',
-  field_name: '6',
-  is_mandatory: 'true',
-  meta: {
-    text: 'Do you think you have pain in any other areas of your body that we did not mention?',
-    data: [
-      {
-        label: 'YES',
-        value: 'YES'
-      },
-      {
-        label: 'NO',
-        value: 'NO'
-      }
-    ]
-  }
-},
-
-{
-  component: 'input-radio',
-  field_name: '7',
-  is_mandatory: 'true',
-  meta: {
-    text: 'Have you used any kind of stimulant drugs like cocaine?',
-    data: [
-      {
-        label: 'YES',
-        value: 'YES'
-      },
-      {
-        label: 'NO',
-        value: 'NO'
-      }
-    ]
-  }
-},
-
-{
-  component: 'input-radio',
-  field_name: '8',
-  is_mandatory: 'true',
-  meta: {
-    text: 'Do you smoke cigarettes often?',
-    data: [
-      {
-        label: 'YES',
-        value: 'YES'
-      },
-      {
-        label: 'NO',
-        value: 'NO'
-      }
-    ]
-  }
-},
-
-{
-  component: 'input-radio',
-  field_name: '9',
-  is_mandatory: 'true',
-  meta: {
-    text: 'Are you clinically diagnosed with depression?',
-    data: [
-      {
-        label: 'YES',
-        value: 'YES'
-      },
-      {
-        label: 'NO',
-        value: 'NO'
-      }
-    ]
-  }
-},
-
-{
-  component: 'input-radio',
-  field_name: '10',
-  is_mandatory: 'true',
-  meta: {
-    text: 'Are you clinically diagnosed with Bipolar Disorder?',
-    data: [
-      {
-        label: 'YES',
-        value: 'YES'
-      },
-      {
-        label: 'NO',
-        value: 'NO'
-      }
-    ]
-  }
-},
-
-{
-  component: 'input-radio',
-  field_name: '11',
-  is_mandatory: 'true',
-  meta: {
-    text: 'Have you ever been diagnosed with schizophrenia?',
-    data: [
-      {
-        label: 'YES',
-        value: 'YES'
-      },
-      {
-        label: 'NO',
-        value: 'NO'
-      }
-    ]
-  }
-},
-
-{
-  component:'input-text',
-  field_name:'12',
-  is_mandatory:'true',
-  meta:{
-    label:'How many times have you dispensed extended-release opioid prescriptions in the last month?',
-    placeholder:'0-10'
-  }
-},
-
-{
-  component:'input-text',
-  field_name:'13',
-  is_mandatory:'true',
-  meta:{
-    label:'How many unique pharmacies do you use for dispensing?',
-    placeholder:'0-10'
-  }
-},
-
-{
-  component:'input-text',
-  field_name:'14',
-  is_mandatory:'true',
-  meta:{
-    label:'How many unique prescribers do you have for opioid?',
-    placeholder:'0-10'
-  }
-},
-
-{
-  component:'input-text',
-  field_name:'15',
-  is_mandatory:'true',
-  meta:{
-    label:'How many times have you been hospitalized in the past month?',
-    placeholder:'0-10'
-  }
-},
-
-{
-  component:'input-text',
-  field_name:'16',
-  is_mandatory:'true',
-  meta:{
-    label:'How many times have you used Methadone,Fentanyl, Morphine or Oxycodone in the past month?',
-    placeholder:'0-10'
-  }
-},
-
-{
-  component:'input-text',
-  field_name:'17',
-  is_mandatory:'true',
-  meta:{
-    label:'How many times have you used Hydromorphone in the past month?',
-    placeholder:'0-10'
-  }
-},
-
-{
-  component:'input-text',
-  field_name:'18',
-  is_mandatory:'true',
-  meta:{
-    label:'How many times have you used antidepressants or muscle relaxants in the past month?',
-    placeholder:'0-10'
-  }
-},
-
-{
-  component:'input-text',
-  field_name:'19',
-  is_mandatory:'true',
-  meta:{
-    label:'Total number of Opioids dispensed',
-    placeholder:'0-10'
-  }
-}
-
-    ]
-  }
   const handleAboutUsClick = () => {
-    Linking.openURL('https://devpost.com/software/winter-arch#updates');
+    Linking.openURL('https://devpost.com/software/osiris-cxf4b2');
   }
   const onSubmit = formFields => {
     // Actions on submit button click.
@@ -335,19 +77,28 @@ function Example(props) {
       console.log("error",error)
     })
   }
-
-  return (
+  if (!fontsLoaded) {
+		return null;
+	} else {
+        console.log("fonts",fontsLoaded)
+		return ( <> 
+    <ImageBackground
+            source={cropBG}
+            resizeMode="cover"
+            style={styles.BG}
+        >
     <View style={styles.container}>
+    <Text style={styles.title}>Carbon Footprint</Text>
       <ScrollView style={styles.survey}>
-        <View style={styles.surveyHeader}>
-          <Text style={styles.surveyText}>Survey</Text>
+        {/* <View style={styles.surveyHeader}>
+          <Text style={styles.surveyText}>Carbon Footprint</Text>
           <Icon
                   type={Icons.Ionicons}
                   name={"arrow-down-outline"}
                   style={styles.arrowIcon}
                 />
-        </View>
-        <DynamicForm formTemplate={formTemplate} onSubmit={onSubmit} />
+        </View> */}
+        <Carbon/>
       </ScrollView>
       <View style={styles.buttons}>
       <TouchableOpacity style={styles.signOut}
@@ -368,18 +119,35 @@ function Example(props) {
       </TouchableOpacity>
       </View>
     </View>
+    </ImageBackground>
+    </>
   )
 }
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // alignContent:"center",
+    // alignItems:"center",
+    // justifyContent:"center",
   },
+  BG: {
+    flex: 1,
+    justifyContent: "center",
+},
   buttons:{
     flexDirection: 'row',
     marginBottom: 90,
     justifyContent: "center",
   },
+  title: {
+		fontSize: 30,
+		alignItems: "center",
+    marginTop:58,
+  marginLeft:"25%",
+    		// fontWeight: "bold",
+		fontFamily: "AlegreyaSans_700Bold",
+	},
   signOut:{
     flex: 1,
     margin: 10,
@@ -408,10 +176,13 @@ const styles = StyleSheet.create({
   },
   surveyHeader:{
     flexDirection: 'row',
+    alignContent:"center",alignItems:"center"
   },
   surveyText:{
+    marginLeft:7,
     fontSize: 30,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: "AlegreyaSans_700Bold",
   },
   arrowIcon:{
     marginRight: 10,
@@ -420,7 +191,7 @@ const styles = StyleSheet.create({
   survey:{
     backgroundColor: "#e0e0e0",
     margin: 10,
-    marginTop: 40,
+    marginTop: 20,
     borderRadius: 25,
     padding: 10,
   }
