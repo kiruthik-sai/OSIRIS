@@ -9,6 +9,7 @@ import {
 	Text,
 	ScrollView,
 	Modal,
+	ImageBackground,
 } from "react-native";
 import {
 	useFonts,
@@ -32,7 +33,8 @@ import * as FileSystem from "expo-file-system";
 import { Camera } from "expo-camera";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Emergency from "./emergency";
-function Detector() {
+function Detector() {const cropBG = require("../assets/cropBG.jpg");
+
 	let [fontsLoaded] = useFonts({
 		AlegreyaSans_100Thin,
 		AlegreyaSans_100Thin_Italic,
@@ -50,7 +52,7 @@ function Detector() {
 		AlegreyaSans_900Black_Italic,
 	});
 	const [modalVisible, setModalVisible] = useState(false);
-    const [pestModealVisible, setPestModalVisible] = useState(false)
+	const [pestModealVisible, setPestModalVisible] = useState(false);
 	const [hasPermission, setHasPermission] = useState(null);
 	const [type, setType] = useState(Camera.Constants.Type.back);
 	const [openCamera, setOpenCamera] = useState(false);
@@ -61,7 +63,7 @@ function Detector() {
 		plant: "",
 		remedy: "",
 	});
-    const [pestData, setPestData] = useState("")
+	const [pestData, setPestData] = useState("");
 	useEffect(() => {
 		(async () => {
 			const { status } = await Camera.requestCameraPermissionsAsync();
@@ -93,7 +95,7 @@ function Detector() {
 			aspect: [4, 3],
 			quality: 1,
 		});
-
+		
 		console.log("result", result);
 
 		if (!result.cancelled) {
@@ -105,7 +107,11 @@ function Detector() {
 	} else {
 		console.log("fonts", fontsLoaded);
 		return (
-			<>
+			<><ImageBackground
+            source={cropBG}
+            resizeMode="cover"
+            style={styles.BG}
+        >
 				<ScrollView contentContainerStyle={styles.ScrollView}>
 					<Modal
 						animationType="slide"
@@ -116,35 +122,47 @@ function Detector() {
 						}}
 					>
 						<View style={styles.centeredView}>
-							<View style={styles.modalView}><ScrollView>
-								<Text style={styles.Report}>
-									Analysis Report
-								</Text>
-								<Text style={styles.card}>
-									<Text style={{color:"black"}}>Disease:</Text> {dataPassed.disease}
-								</Text>
-								<Text style={styles.card}>
-								<Text style={{color:"black"}}>Plant:</Text> {dataPassed.plant}
-								</Text>
-								<Text style={styles.card}>
-								<Text style={{color:"black"}}>Remedy:</Text> {dataPassed.remedy}
-								</Text>
-								<Text style={styles.card}>
-								<Text style={{color:"black"}}>Call +1 833-897-2474 :</Text> for more help.
-								</Text>
-                                <TouchableOpacity
-                                    onPress={()=>{
-                                        setModalVisible(false)
-                                    }}
-                                >
-                                    <Text style={styles.TestForDisease}>Close</Text>
-                                </TouchableOpacity>
+							<View style={styles.modalView}>
+								<ScrollView>
+									<Text style={styles.Report}>
+										Analysis Report
+									</Text>
+									<Text style={styles.card}>
+										<Text style={{ color: "black" }}>
+											Disease:
+										</Text>{" "}
+										{dataPassed.disease}
+									</Text>
+									<Text style={styles.card}>
+										<Text style={{ color: "black" }}>
+											Plant:
+										</Text>{" "}
+										{dataPassed.plant}
+									</Text>
+									<Text style={styles.card}>
+										<Text style={{ color: "black" }}>
+											Remedy:
+										</Text>{" "}
+										{dataPassed.remedy}
+									</Text>
+									<Text style={styles.card}>
+										<Text style={{ color: "black" }}>
+											Call +1 833-897-2474 :
+										</Text>{" "}
+										for more help.
+									</Text>
+									<TouchableOpacity
+										onPress={() => {
+											setModalVisible(false);
+										}}
+									>
+										<Text style={styles.close}>Close</Text>
+									</TouchableOpacity>
 								</ScrollView>
 							</View>
 						</View>
-
 					</Modal>
-                    <Modal
+					<Modal
 						animationType="slide"
 						transparent={true}
 						visible={pestModealVisible}
@@ -154,18 +172,18 @@ function Detector() {
 					>
 						<View style={styles.centeredView}>
 							<View style={styles.modalView}>
-                            <ScrollView>
-								<Text style={styles.Report}>
-									Pest Detected: {pestData}
-								</Text>
-								<TouchableOpacity
-                                    onPress={()=>{
-                                        setPestModalVisible(false)
-                                    }}
-                                >
-                                    <Text style={styles.TestForDisease}>Close</Text>
-                                </TouchableOpacity>
-							</ScrollView>
+								<ScrollView>
+									<Text style={styles.Report}>
+										Pest Detected: {pestData}
+									</Text>
+									<TouchableOpacity
+										onPress={() => {
+											setPestModalVisible(false);
+										}}
+									>
+										<Text style={styles.close}>Close</Text>
+									</TouchableOpacity>
+								</ScrollView>
 							</View>
 						</View>
 					</Modal>
@@ -260,21 +278,22 @@ function Detector() {
 							Test for Disease{" "}
 						</Text>
 					</TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={()=>{
-                            if(image){
-                                fetch("http://10.0.0.59:8080/infest")
-                                .then(response=>response.json())
-                                .then(data=>{
-                                    setPestData(data.infestation)
-                                    setPestModalVisible(true)
-                                })
-                            }
-                        }}
-                    >
-                        <Text style={styles.TestForDisease}>Test for Pest</Text>
-                    </TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => {
+							if (image) {
+								fetch("http://10.0.0.59:8080/infest")
+									.then((response) => response.json())
+									.then((data) => {
+										setPestData(data.infestation);
+										setPestModalVisible(true);
+									});
+							}
+						}}
+					>
+						<Text style={styles.TestForDisease}>Test for Pest</Text>
+					</TouchableOpacity>
 				</ScrollView>
+				</ImageBackground>
 			</>
 		);
 	}
@@ -296,16 +315,19 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		color: "white",
 		marginVertical: 10,
-	},
+	},  BG: {
+        flex: 1,
+        justifyContent: "center",
+    },
 	ScrollView: {
 		flex: 1,
 		alignItems: "center",
 		justifyContent: "center",
-		backgroundColor: "#f8fff5",
+		// backgroundColor: "#f8fff5",
 		// paddingVertical:100,
 	},
 	pickImage: {
-		backgroundColor: "#DCBC99",
+		backgroundColor: "#badede",
 		margin: 10,
 		padding: 15,
 		borderRadius: 15,
@@ -313,7 +335,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	openCamera: {
-		backgroundColor: "#DCBC99",
+		backgroundColor: "#badede",
 		margin: 10,
 		padding: 15,
 		borderRadius: 15,
@@ -327,7 +349,14 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		marginTop: 22,
 	},
-
+	close: {
+		padding: 15,
+		borderRadius: 15,
+		backgroundColor: "red",
+		color: "white",
+		fontWeight: "bold",
+		width: 70,
+	},
 	modalView: {
 		width: 350,
 		height: 700,
@@ -371,8 +400,8 @@ const styles = StyleSheet.create({
 		color: "white",
 	},
 	TestForDisease: {
-		backgroundColor: "red",
-		margin: 10,
+		backgroundColor: "#DCBC99",
+		margin: 12,
 		padding: 15,
 		borderRadius: 15,
 		fontSize: 15,
