@@ -8,13 +8,29 @@ import {
 	TouchableOpacity,
 	ScrollView,
 	Modal,
+	ImageBackground,
 } from "react-native";
 import React, { useState } from "react";
 import plants from "../assets/data/plants.json";
 import PlantList from "../components/PlantList/index";
 import { LinearGradient } from "expo-linear-gradient";
-import { AlegreyaSans_100Thin } from "@expo-google-fonts/alegreya-sans";
-
+import {
+	useFonts,
+	AlegreyaSans_100Thin,
+	AlegreyaSans_100Thin_Italic,
+	AlegreyaSans_300Light,
+	AlegreyaSans_300Light_Italic,
+	AlegreyaSans_400Regular,
+	AlegreyaSans_400Regular_Italic,
+	AlegreyaSans_500Medium,
+	AlegreyaSans_500Medium_Italic,
+	AlegreyaSans_700Bold,
+	AlegreyaSans_700Bold_Italic,
+	AlegreyaSans_800ExtraBold,
+	AlegreyaSans_800ExtraBold_Italic,
+	AlegreyaSans_900Black,
+	AlegreyaSans_900Black_Italic,
+} from "@expo-google-fonts/alegreya-sans";
 import Emergency from "./emergency";
 
 const PlantLists = ({ plant ,modalVisible,setModalVisible}) => (
@@ -86,8 +102,29 @@ export default function Plants() {
 	const d = new Date();
 	let monthName = months[d.getMonth()];
 	const renderItem = ({ item }) => <PlantLists plant={item} modalVisible={modalVisible} setModalVisible={setModalVisible}/>;
-
-	return (
+	let [fontsLoaded] = useFonts({
+		AlegreyaSans_100Thin,
+		AlegreyaSans_100Thin_Italic,
+		AlegreyaSans_300Light,
+		AlegreyaSans_300Light_Italic,
+		AlegreyaSans_400Regular,
+		AlegreyaSans_400Regular_Italic,
+		AlegreyaSans_500Medium,
+		AlegreyaSans_500Medium_Italic,
+		AlegreyaSans_700Bold,
+		AlegreyaSans_700Bold_Italic,
+		AlegreyaSans_800ExtraBold,
+		AlegreyaSans_800ExtraBold_Italic,
+		AlegreyaSans_900Black,
+		AlegreyaSans_900Black_Italic,
+	});
+  const cropBG = require("../assets/plantsBG.jpg");
+  
+	return (<><ImageBackground
+		source={cropBG}
+		resizeMode="cover"
+		style={styles.BG}
+	>
 		<ScrollView style={styles.ScrollView} showsVerticalScrollIndicator={false}>
 			<Modal
 				animationType="slide"
@@ -122,7 +159,7 @@ export default function Plants() {
 						/>
 					</TouchableOpacity>
 				</View>
-				<View style={{ width: "50%" }}>
+				<View style={{ width: "34%" }}>
 					<Text
 						style={{
 							fontWeight: "bold",
@@ -131,9 +168,13 @@ export default function Plants() {
 							margin: 1,
 							marginTop: 15,
 							marginLeft: 23,
-							textShadowColor: "rgba(186, 222, 222 0.25)",
-							textShadowOffset: { width: -1, height: 1 },
-							textShadowRadius: 10,
+							// textShadowColor: "rgba(186, 222, 222 0.25)",
+							// textShadowOffset: { width: -1, height: 1 },
+							// textShadowRadius: 10,
+							backgroundColor:"rgba(186, 222, 222,0.6)",
+							borderRadius:15,
+							padding: 5,
+							paddingHorizontal:6
 						}}
 					>
 						Your crops:
@@ -156,9 +197,13 @@ export default function Plants() {
 							margin: 1,
 							marginTop: 15,
 							marginLeft: 23,
-							textShadowColor: 'rgba(186, 222, 222 0.25)',
-							textShadowOffset: { width: -1, height: 1 },
-							textShadowRadius: 10,
+							// textShadowColor: 'rgba(186, 222, 222 0.25)',
+							// textShadowOffset: { width: -1, height: 1 },
+							// textShadowRadius: 10,
+							backgroundColor:"rgba(186, 222, 222,0.6)",
+							borderRadius:15,
+							padding: 5,
+							paddingHorizontal:6
 						}}
 					>
 						Reccomendations for {monthName} and soil type:
@@ -174,11 +219,13 @@ export default function Plants() {
 				/>
 			</View>
 		</ScrollView>
+		</ImageBackground>
+		</>
 	);
 }
 
 const styles = StyleSheet.create({
-	ScrollView: { paddingBottom: 82, backgroundColor: "#f8fff5", flex: 1 },
+	ScrollView: { paddingBottom: 82,  flex: 1 },
 	item: {
 		backgroundColor: "#f9c2ff",
 		padding: 20,
@@ -219,7 +266,10 @@ const styles = StyleSheet.create({
 		shadowRadius: 4,
 		elevation: 5,
 	},
-
+	BG: {
+		flex: 1,
+		justifyContent: "center",
+	},
 	name: {
 		fontSize: 12,
 	},

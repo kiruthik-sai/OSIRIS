@@ -22,16 +22,16 @@ const Carbon = () => {
       </View>
       <View>
       <Text style={styles.text} >CO2 Emmision Per Acre :  {selectedValue} lbs CO2e/acre</Text>
-      <Text style={styles.text} > Total Acres : {number}</Text>
+      <Text style={styles.text} >Total Acres : {number}</Text>
       <Text style={styles.text} >Total CO2 Emmision : {selectedValue*number} lbs CO2e/acre</Text>
      </View>
       <View style={styles.container}>
       <Picker
         placeholder={{ label: "What is your crop?", value: null }}
         selectedValue={selectedValue}
-        style={{ height: 50, width: 150 }}
+        style={styles.picker}
         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-      >
+      ><Picker.Item label="(Select)" value="0" /> 
         <Picker.Item label="Cotton" value="3378" />  
         <Picker.Item label="Corn" value="4744" />
         <Picker.Item label="Wheat" value="2676" />  
@@ -78,8 +78,9 @@ const styles = StyleSheet.create({
         fontFamily: "monospace",
   },
   text:{
-    color:'green'
-  }
+    color:'white'
+  },
+  picker:{ height: 50, width: 150,color:"black"},
   
 });
 

@@ -51,7 +51,7 @@ function Detector() {
 			quality: 1,
 		});
 
-		console.log(result);
+		console.log("result",result);
 
 		if (!result.cancelled) {
 			setImage(result.uri);

@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',  
   },
   survey:{
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "#A3B59E",
     margin: 10,
     marginTop: 20,
     borderRadius: 25,
