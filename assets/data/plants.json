@@ -1,12 +1,12 @@
 [
   {
     "id": "1",
-    "name": "El Cabo Coffe Bar Tres De Mayo",
+    "name": "Wheat",
     "deliveryFee": 1.4,
     "minDeliveryTime": 25,
     "maxDeliveryTime": 35,
     "rating": 4.0,
-    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg",
+    "image": "https://www.kempsvillechiro.com/images/article-images/wheat.jpg",
     "dishes": [
       {
         "id": "1",
@@ -41,12 +41,12 @@
   },
   {
     "id": "2",
-    "name": "Tony Roma's - C.C. Meridiano",
+    "name": "Corn",
     "deliveryFee": 0.4,
     "minDeliveryTime": 25,
     "maxDeliveryTime": 35,
     "rating": 4.7,
-    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant2.jpeg",
+    "image": "https://cdn.britannica.com/36/167236-050-BF90337E/Ears-corn.jpg",
     "dishes": [
       {
         "name": "Cajun Ribs",
@@ -78,12 +78,12 @@
   },
   {
     "id": "3",
-    "name": "Brothers Barbecue",
+    "name": "Peanuts",
     "deliveryFee": 1.4,
     "minDeliveryTime": 20,
     "maxDeliveryTime": 30,
     "rating": 4.3,
-    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant3.jpeg",
+    "image": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2012/3/8/0/Healthy-Eats_Peanuts-Thinkstock-98427026_s4x3.jpg.rend.hgtvcom.406.305.suffix/1371605952456.jpeg",
     "dishes": [
       {
         "name": "Burger Mustang",
@@ -114,12 +114,12 @@
   },
   {
     "id": "4",
-    "name": "Hamburguesa Nostra La Salle",
+    "name": "Cotton",
     "deliveryFee": 0.9,
     "minDeliveryTime": 30,
     "maxDeliveryTime": 40,
     "rating": 4.5,
-    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant4.jpeg",
+    "image": "https://www.aces.edu/wp-content/uploads/2019/10/GettyImages-154243382.jpg",
     "dishes": [
       {
         "name": "English burger",
@@ -147,5 +147,15 @@
         "price": 10.5
       }
     ]
+  },
+  {"id":"5",
+    "name": "Rice",
+    "deliveryFee": 0.9,
+    "minDeliveryTime": 30,
+    "maxDeliveryTime": 40,
+    "rating": 4.5,
+    "image": "https://cff2.earth.com/uploads/2021/07/22153400/shutterstock_14153186632-960x640.jpg",
+    "dishes": []
+
   }
 ]
