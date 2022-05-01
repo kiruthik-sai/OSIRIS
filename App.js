@@ -12,6 +12,8 @@ import Splash from "./screen/Splash";
 import ViewLogs from "./screen/ViewLogs";
 import Logs from "./screen/Logs";
 import Detector from "./screen/Detector";
+import { StorageAccessFramework } from "expo-file-system";
+import CropRecommendation from "./screen/CropRecommendation";
 // import './App.css';
 const Stack = createNativeStackNavigator();
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
@@ -34,6 +36,7 @@ function App() {
                 <Stack.Screen name="Logs" component={Logs} />
                 <Stack.Screen name="ViewLogs" component={ViewLogs} />
                 <Stack.Screen name="detector" component={Detector} />
+                <Stack.Screen name="crop" component={CropRecommendation}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -13,6 +13,7 @@ import ViewLogs from './ViewLogs'
 import Plants from "./Plants";
 import Emergency from "./emergency";
 import Detector from "./Detector";
+import CropRecommendation from "./CropRecommendation";
 const TabArr = [
     
     {
@@ -27,7 +28,7 @@ const TabArr = [
       label: "Analytics",
       type: Icons.MaterialIcons,
       icon: "insights",
-      component: Plants,
+      component: CropRecommendation,
   },
   {
     route: "Home",
@@ -110,7 +111,7 @@ const TabButton = (props) => {
                     <Icon
                         type={item.type}
                         name={item.icon}
-                        color={focused ? Colors.white : "#00CC76"}
+                        color={focused ? Colors.white : "#00AA95"}
                     />
                 </View>
                 <Animatable.Text ref={textRef} style={styles.text}>
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#00CC76",
+        backgroundColor: "#00AA95",
         borderRadius: 25,
     },
     text: {
